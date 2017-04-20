@@ -3,21 +3,13 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>Select Workouts Performed</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
+<ion-content page="workouts">
+  <div style="display: block;" *ngFor="let workoutItem of workouts" (click)="toggleItemInWorkoutList(workoutItem)" class="rounded-rectangle">
+    {{workoutItem.workout}}
   </div>
+  <button class="pin-button-to-bottom" ion-button [disabled]="!selectedWorkouts.length">Enter Weights</button>
 </ion-content>

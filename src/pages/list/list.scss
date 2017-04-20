@@ -1,3 +1,13 @@
-page-list {
-
+[page="workouts"] {
+  .rounded-rectangle {
+    display: inline-block;
+    border: 1px solid grey;
+    border-radius: 5px;
+    height: 64px;
+    width: 64px;
+    float: left;
+    margin: 8px;
+    background-color: #5d5d5d;
+    color: white;
+  }
 }
