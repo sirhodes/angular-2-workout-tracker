@@ -7,9 +7,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content page="workouts">
-  <div style="display: block;" *ngFor="let workoutItem of workouts" (click)="toggleItemInWorkoutList(workoutItem)" class="rounded-rectangle">
-    {{workoutItem.workout}}
+<ion-content page="workouts" ion-grid>
+  <div ion-row>
+    <div ion-col col-4 *ngFor="let workoutItem of workouts" (click)="toggleItemInWorkoutList(workoutItem)">
+      <div class="rounded-rectangle full" *ngClass="{'disabled': workoutItem.selected}">
+        {{workoutItem.workout}}
+      </div>
+    </div>
   </div>
-  <button class="pin-button-to-bottom" ion-button [disabled]="!selectedWorkouts.length">Enter Weights</button>
+  <button class="pin-button-to-bottom" full ion-button [disabled]="!selectedWorkouts.length">Enter Weights</button>
 </ion-content>

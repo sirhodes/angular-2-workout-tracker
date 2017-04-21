@@ -10,7 +10,7 @@ export class ListPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
   workouts: Array<{workout: string}>;
-  selectedWorkouts: Array<{workout: string}>;
+  selectedWorkouts: Array<{workout: string, selected: boolean}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     // If we navigated to this page, we will have an item available as a nav param
@@ -45,6 +45,7 @@ export class ListPage {
   }
   toggleItemInWorkoutList(workoutItem) {
     this.selectedWorkouts.push(workoutItem);
+    workoutItem.selected = true;
   }
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
