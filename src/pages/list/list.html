@@ -8,12 +8,19 @@
 </ion-header>
 
 <ion-content page="workouts" ion-grid>
-  <div ion-row>
-    <div ion-col col-4 *ngFor="let workoutItem of workouts" (click)="toggleItemInWorkoutList(workoutItem)">
-      <div class="rounded-rectangle full" *ngClass="{'disabled': workoutItem.selected}">
+  <div ion-row padding>
+    <div ion-col col-4 *ngFor="let workoutItem of workouts">
+      <div class="rounded-rectangle full" *ngIf="!workoutItem.selected" (click)="addItemInWorkoutList(workoutItem)">
+        {{workoutItem.workout}}
+      </div>
+      <div class="rounded-rectangle full selected" *ngIf="workoutItem.selected" (click)="removeItemInWorkoutList(workoutItem)">
         {{workoutItem.workout}}
       </div>
     </div>
   </div>
-  <button class="pin-button-to-bottom" full ion-button [disabled]="!selectedWorkouts.length">Enter Weights</button>
+  <div ion-row padding>
+    <button ion-button ion-col col-12 [disabled]="!selectedWorkouts.length" (click)="storeSelectedWorkoutsInFactory(selectedWorkouts)">
+      Enter Weights for {{selectedWorkouts.length}} Workouts
+    </button>
+  </div>
 </ion-content>
