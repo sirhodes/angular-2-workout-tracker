@@ -1,56 +1,77 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { WorkoutService } from '../../common/workout.service';
+import { Workout } from '../../models/workout.model';
+import { EnterWeightsPage } from '../enter-weights/enter-weights';
 
 @Component({
   selector: 'page-list',
-  templateUrl: 'list.html'
+  templateUrl: 'list.html',
+  providers: [WorkoutService]
 })
 export class ListPage {
-  selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
-  workouts: Array<{workout: string}>;
-  selectedWorkouts: Array<{workout: string, selected: boolean}>;
+  workouts: Array<Workout>;
+  selectedWorkouts: Array<Workout>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+  constructor(public navCtrl: NavController, public navParams: NavParams, private workoutService: WorkoutService) {
     this.selectedWorkouts = [];
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
     this.workouts = [
-      { workout: 'Flat Bench Press'},
-      { workout: 'Incline Bench Press'},
-      { workout: 'Dumbell Incline Bench Press'},
-      { workout: 'Barbell Curl'},
-      { workout: 'Deadlift'},
-      { workout: 'Shoulder Press'},
-      { workout: 'Barbell Squat'},
-      { workout: 'Leg Press'},
-      { workout: 'Calf Raises'},
-      { workout: 'Lat Pull-Down'},
-      { workout: 'Face Pull'}
+    {
+      workout: 'Flat Bench Press',
+      selected: false
+    },
+    {
+      workout: 'Incline Bench Press',
+      selected: false
+    },
+    {
+      workout: 'Dumbell Incline Bench Press',
+      selected: false
+    },
+    {
+      workout: 'Barbell Curl',
+      selected: false
+    },
+    {
+      workout: 'Deadlift',
+      selected: false
+    },
+    {
+      workout: 'Shoulder Press',
+      selected: false
+    },
+    {
+      workout: 'Barbell Squat',
+      selected: false
+    },
+    {
+      workout: 'Leg Press',
+      selected: false
+    },
+    {
+      workout: 'Calf Raises',
+      selected: false
+    },
+    {
+      workout: 'Lat Pull-Down',
+      selected: false
+    },
+    {
+      workout: 'Face Pull',
+      selected: false
+    }
     ];
   }
-  toggleItemInWorkoutList(workoutItem) {
+  addItemInWorkoutList(workoutItem) {
     this.selectedWorkouts.push(workoutItem);
     workoutItem.selected = true;
   }
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
-    });
+  removeItemInWorkoutList(workoutItem, $index) {
+    this.selectedWorkouts.splice($index, 1);
+    workoutItem.selected = false;
+  }
+  storeSelectedWorkoutsInFactory(workoutArray: Workout[]) {
+    this.navCtrl.push(EnterWeightsPage, {tempWorkoutsStored: workoutArray});
   }
 }
